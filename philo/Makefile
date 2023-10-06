@@ -6,7 +6,7 @@
 #    By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 02:33:50 by momihamm          #+#    #+#              #
-#    Updated: 2023/10/05 11:20:44 by momihamm         ###   ########.fr        #
+#    Updated: 2023/10/06 12:06:54 by momihamm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ FILES = philo.c\
 		utils.c\
 		utils1.c\
 		utils2.c\
+		linked_list.c\
+		creat_threads.c\
 		check_use_agrs.c
 
 OBJ = $(FILES:.c=.o)

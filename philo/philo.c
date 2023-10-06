@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:13:22 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/05 11:30:33 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:35:21 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	mr(void)
 
 int main(int ac, char **av)
 {
-	// t_vars *param;
 	t_philo	*philo;
 	int indx;
 	atexit (mr);
 	if (ac == 5 || ac == 6)
 	{
-		// param = malloc (sizeof (t_vars));
 		philo = malloc (sizeof (t_philo));
 		philo->number_of_times_each_philosopher_must_eat = -1;
 		indx = 1;		
@@ -44,7 +42,7 @@ int main(int ac, char **av)
 		printf ("time_to_eat  %d\n",philo->time_to_eat);
 		printf ("time_to_sleep  %d\n",philo->time_to_sleep);
 		printf ("number_of_times_each_philosopher_must_eat  %d\n",philo->number_of_times_each_philosopher_must_eat);
-		// free (philo);
-		// free (param);
+		creat_threads(philo);
+		free (philo);
 	}
 }

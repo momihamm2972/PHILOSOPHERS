@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/05 11:28:24 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:35:32 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <pthread.h>
+
+/**********************************linked list*********************************/
+typedef struct node
+{
+	int				data;
+	struct node		*next;
+}t_node;
+/******************************************************************************/
 
 /*********************************parssing*************************************/
 typedef struct var_s
@@ -39,6 +48,11 @@ typedef struct philo
 /******************************************************************************/
 
 // char	*ft_strjoin(char const *s1, char const *s2);
+t_node	*ft_lstlast(t_node **lst);
+t_node	*ft_elimini(t_node **lst, int first);
+t_node	*ft_lstnew(int content);
+void	creat_threads(t_philo *ph);
+void	*fun();
 long long	ft_atoi(char *str);
 int	ft_strlen(char *str);
 char	*ft_strdup(char *s1);
