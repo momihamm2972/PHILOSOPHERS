@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/06 12:35:32 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:02:20 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,25 @@ typedef struct node
 	struct node		*next;
 }t_node;
 /******************************************************************************/
-
-/*********************************parssing*************************************/
-typedef struct var_s
-{
-    char	*virgin;
-	char	*ptr;
-	char	**n_virgin;
-	// int		num_of_ac;
-}t_vars;
-/******************************************************************************/
 /**************************************philo***********************************/
 typedef struct philo
 {
+	pthread_t the_thread;
+	int		id;
 	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_times_each_philosopher_must_eat;
+	struct philo *next;
 }t_philo;
-
 /******************************************************************************/
 
 // char	*ft_strjoin(char const *s1, char const *s2);
-t_node	*ft_lstlast(t_node **lst);
-t_node	*ft_elimini(t_node **lst, int first);
-t_node	*ft_lstnew(int content);
+t_philo	*ft_lstlast(t_philo **lst);
+t_philo	*ft_elimini(t_philo **lst, int first);
+t_philo	*ft_lstnew(int content, char **victor);
+void	ft_lstadd_back(t_philo **lst, t_philo *new);
 void	creat_threads(t_philo *ph);
 void	*fun();
 long long	ft_atoi(char *str);
@@ -63,7 +56,7 @@ void	*ft_memcpy(void *to, const void *from, size_t len);
 // void	free_all(char **s, int ptrs);
 // char	*ft_substr(char *s, int start, int len);
 int check_arg (char *str);
-int	ft_args (int indx, t_philo *philo, char *str);
+int	ft_args (char *str);
 int	ft_isalpha(int c);
 int	ft_isdigit(int c);
 
