@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/08 11:21:08 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:19:44 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	*fun()
 	return (NULL);
 }
 
-void	actions(t_philo *john_jack_russo)
+void	*actions(void *john_jack_russo)
 {
-	printf ("machkil%d\n",john_jack_russo->id);
-	// return (NULL);
+	printf ("machkil>>>>%d<<<<\n",((t_philo *)john_jack_russo)->id);
+	return (NULL);
 }
 
 int	creat_threads(t_philo *ph)
@@ -34,9 +34,11 @@ int	creat_threads(t_philo *ph)
 	if (!ph)
 		return (-1);
 	ptr = ph;
-	while (indx < ph->id)
+	while (indx < ph->number_of_philosophers)
 	{
-		pthread_create (&ph->the_thread, NULL, &actions, ph);
+		// printf ("wiwi>>%d<<\n",indx);
+		pthread_create (&ph->the_thread, NULL, &actions, ptr);
+		// pthread_join (ph->the_thread, NULL);
 		ptr = ptr->next;
 		indx++;
 	}
