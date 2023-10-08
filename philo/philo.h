@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/07 19:02:20 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:21:01 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_philo	*ft_lstlast(t_philo **lst);
 t_philo	*ft_elimini(t_philo **lst, int first);
 t_philo	*ft_lstnew(int content, char **victor);
 void	ft_lstadd_back(t_philo **lst, t_philo *new);
-void	creat_threads(t_philo *ph);
+int	creat_threads(t_philo *ph);
+void	actions(t_philo *john_jack_russo);
 void	*fun();
 long long	ft_atoi(char *str);
 int	ft_strlen(char *str);
