@@ -6,49 +6,72 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 12:14:44 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/08 17:27:51 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:02:43 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    *my_turn()
-{
-    int *kmi = (int *)malloc (sizeof (int));
-    *kmi = 47;
-    int i=0;
-    while (i < 8)
-    {
-        sleep (1);
-        printf ("my_turn>>>%d\n",*kmi);
-        i++;
-        (*kmi)++;
-    }
-    return (kmi);
-}
+int merma = 0;
+pthread_mutex_t k_9fel;
 
-void    *your_turn()
+// void    *my_turn()
+// {
+//     int *kmi = (int *)malloc (sizeof (int));
+//     *kmi = 47;
+//     int i=0;
+//     while (i < 8)
+//     {
+//         sleep (1);
+//         printf ("my_turn>>>%d\n",*kmi);
+//         i++;
+//         (*kmi)++;
+//     }
+//     return (kmi);
+// }
+
+// void    *your_turn()
+// {
+//     int i =0;
+//     while (i < 5)
+//     {
+//         sleep(1);
+//         printf ("your_turn\n");
+//         i++;
+//     }
+//     return (NULL);
+// }
+
+void    *rotine()
 {
-    int i =0;
-    while (i < 5)
+    int indx;
+
+    indx = 0;
+    // if (lock == 0)
+    // {
+    while (indx < 1000000000)
     {
-        sleep(1);
-        printf ("your_turn\n");
-        i++;
+        pthread_mutex_lock(&k_9fel);
+        merma++;
+        indx++;
+        pthread_mutex_unlock(&k_9fel);
     }
+    // }
     return (NULL);
 }
 
 int main()
 {
-    pthread_t my;
-    int *num;
-    pthread_create (&my, NULL, &my_turn, NULL);
-    // pthread_create (&you, NULL, &your_turn, NULL);
-    // pthread_join (you, NULL);
-    your_turn();
-    pthread_join (my, (void *)&num);
+    pthread_t my, you;
+    pthread_mutex_init(&k_9fel, NULL);
+    // int *num;
+    pthread_create (&my, NULL, &rotine, NULL);
+    pthread_create (&you, NULL, &rotine, NULL);
+    pthread_join (my, NULL);
+    pthread_join (you, NULL);
+    pthread_mutex_destroy (&k_9fel);
+    // your_turn();
     // while (1);
     // my_turn();
-    printf ("finish <++%d++>\n",*num);
+    printf ("finish <++%d++>\n",merma);
 }

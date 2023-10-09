@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/08 11:56:58 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:22:55 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ typedef struct node
 /**************************************philo***********************************/
 typedef struct philo
 {
-	pthread_t the_thread;
-	int		id;
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
-	struct philo *next;
+	pthread_t		the_thread;
+	pthread_mutex_t	the_mutex;
+	int				id;
+	int				number_of_philosophers;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_of_times_each_philosopher_must_eat;
+	struct philo	*next;
 }t_philo;
 /******************************************************************************/
 
@@ -57,6 +58,7 @@ void	*ft_memcpy(void *to, const void *from, size_t len);
 // void	free_all(char **s, int ptrs);
 // char	*ft_substr(char *s, int start, int len);
 int check_arg (char *str);
+int	creat_mutexs(t_philo *ph);
 int	ft_args (char *str);
 int	ft_isalpha(int c);
 int	ft_isdigit(int c);
