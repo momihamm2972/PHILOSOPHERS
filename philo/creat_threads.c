@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/09 19:35:28 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:35:05 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ int	creat_threads(t_philo *ph)
 	creat_mutexs(ph);
 	while (indx < ph->number_of_philosophers)
 	{
-		// printf ("wiwi>>%d<<\n",indx);
 		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
-		// pthread_join (ptr->the_thread, NULL);
 		ptr = ptr->next;
 		indx++;
 	}
+	ptr = ph;
+	indx = 0;
+	while (indx < ph->number_of_philosophers)
+	{
+		pthread_join (ptr->the_thread, NULL);
+		ptr = ptr->next;
+		indx++;
+	}	
 	return (0);
 }
 

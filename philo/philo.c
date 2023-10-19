@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:13:22 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/09 19:32:13 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:35:25 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int ac, char **av)
 {
 	t_philo	*philo;
 	int indx;
-	// atexit (mr);
+	atexit (mr);
 	if (ac == 5 || ac == 6)
 	{
 		// printf ("dkhelt\n");
@@ -53,7 +53,7 @@ int main(int ac, char **av)
 		// }
 		// printf ("number_of_philosophers  %d\n",philo->number_of_philosophers);
 		creat_threads (philo);
-		while (1);
+		// while (1);
 		// printf ("skip\n");
 		free (philo);
 	}
