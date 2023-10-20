@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:00:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/19 21:35:09 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/20 22:19:52 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ t_philo	*ft_elimini(t_philo **lst, int first)
 void	ft_lstadd_back(t_philo **lst, t_philo *new)
 {
 	t_philo	*the_last;
+
 	if (!(*lst))
 	{
 		(*lst) = new;
 		return ;
 	}
-
 	the_last = ft_lstlast(lst);
 	the_last->next = new;
-	// new->prev = the_last;
 }
 
 // int main()
