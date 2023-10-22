@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 12:14:44 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/19 21:35:13 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/22 01:22:50 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,31 @@ void    *rotine()
 
 int main()
 {
-    pthread_t my, you;
-    pthread_mutex_init(&k_9fel, NULL);
-    // int *num;
-    pthread_create (&my, NULL, &rotine, NULL);
-    pthread_create (&you, NULL, &rotine, NULL);
-    pthread_join (my, NULL);
-    pthread_join (you, NULL);
-    pthread_mutex_destroy (&k_9fel);
+    // pthread_t my, you;
+    // pthread_mutex_init(&k_9fel, NULL);
+    // // int *num;
+    // pthread_create (&my, NULL, &rotine, NULL);
+    // pthread_create (&you, NULL, &rotine, NULL);
+    // pthread_join (my, NULL);
+    // pthread_join (you, NULL);
+    // pthread_mutex_destroy (&k_9fel);
     // your_turn();
     // while (1);
     // my_turn();
-    printf ("finish <++%d++>\n",merma);
+    struct timeval time;
+    gettimeofday (&time, NULL);
+    // printf ("finish <++%d++>\n",gettimeofday (&time, NULL));
+    // printf ("finish <++%d++>\n",gettimeofday (&time, NULL));
+    // int i =0;
+    // while (i < 1000)
+    printf ("finish <++%ld++>\n",time.tv_sec);
+    printf ("finish <++%d++>\n",time.tv_usec);
+    printf ("finish <++%ld++>\n",(time.tv_sec * 1000000000) + time.tv_usec);
+    //     i++;
+    sleep (1);
+    // tv_usec
+    printf ("finish <++%ld++>\n",time.tv_sec);
+    printf ("finish <++%d++>\n",time.tv_usec);
+    printf ("finish <++%ld++>\n",(time.tv_sec * 1000000000) + time.tv_usec);
+    // printf ("finish <++%d++>\n",gettimeofday (&time, NULL));
 }
