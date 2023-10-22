@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/22 02:36:44 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/22 05:40:39 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,36 @@ int	safe_printing(t_philo *kmi, char *rotine)
 void	*actions(void *john_jack_russo)
 {
 	t_philo			*philo;
-	// struct timeval /	time;
 	int				even;
-	long				time_of_the_last_meal;
+	// long				time_of_the_last_meal;
 
 	philo = (t_philo *)john_jack_russo;
-	time_of_the_last_meal = ft_time_of_living();
-	// gettimeofday (&time, NULL);
-	// printf ("lkmaya == %ld\n", time_of_the_last_meal);
+	// time_of_the_last_meal = ft_time_of_living();
+	// printf (">>>>>>>>>>%ld\n", time_of_the_last_meal);
 	if (philo->id % 2 == 0)
 		usleep(100);
 	even = philo->time_to_die * 2;
 	while (1)
 	{
+		// if ((ft_time_of_living() - time_of_the_last_meal) > (long)(philo->time_to_die * 1000))
+		// {
+		// 	safe_printing (philo, "is die 💀");
+		// 	return (NULL);
+		// }
+		// printf ("<<<<<<<<<<<<<%ld\n", ft_time_of_living());
+		// sleep(3);
 		pthread_mutex_lock (&philo->the_mutex);
 		safe_printing(philo, "has one fork 🍴");
-		// printf ("philo_num %d has taken his first fork 🍴\n", philo->id);
+		// printf ("kmi\n");
 		pthread_mutex_lock (&philo->next->the_mutex);
+		// printf ("113795\n");
 		safe_printing(philo, "has two fork 🍴");
-		// printf ("philo_num %d has taken his second fork 🍴\n", philo->id);
-		// printf ("philo_num %d is eating 🧅\n", philo->id);
 		safe_printing(philo, "is eating 🧅");
 		usleep(philo->time_to_eat * 1000);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
-		// printf ("philo_num %d is sleeping 💤\n", philo->id);
 		safe_printing(philo, "is sleeping 💤");
 		usleep (philo->time_to_sleep * 1000);
-		// printf ("philo_num %d is thinking 🧠\n", philo->id);
 		safe_printing(philo, "is thinking 🧠");
 	}
 	return (NULL);

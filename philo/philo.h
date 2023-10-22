@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/22 02:24:26 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/22 05:44:32 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_args(char *str);
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
 int	safe_printing(t_philo *kmi, char *rotine);
+long	ft_time_of_living(void);
 long long	ft_atoi(char *str);
 
 #endif
