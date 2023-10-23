@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/22 05:44:32 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/23 05:46:47 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct philo
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	int				time_of_the_last;
+	int				timer;
+	long			current_time;
+	long			last_meal;
 	struct philo	*next;
 }t_philo;
 /******************************************************************************/
@@ -53,7 +56,7 @@ void		*ft_memcpy(void *to, const void *from, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(char *s1);
 int			ft_strlen(char *str);
-int			creat_threads(t_philo *ph);
+int			create_threads(t_philo *ph, long start);
 int			check_arg(char *str);
 int			creat_mutexs(t_philo *ph);
 int			ft_args(char *str);
@@ -62,5 +65,5 @@ int			ft_isdigit(int c);
 int	safe_printing(t_philo *kmi, char *rotine);
 long	ft_time_of_living(void);
 long long	ft_atoi(char *str);
-
+void	ft_usleep(long);
 #endif

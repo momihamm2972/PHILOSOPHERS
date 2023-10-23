@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 12:14:44 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/22 01:22:50 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/23 05:46:06 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ void    *rotine()
     }
     // }
     return (NULL);
+}
+// last meal dyal lowlani makayt updatach fmera;
+// katchi ghir dethe f node lwela ya3eni maka tchikich ga3 lfalasifa;
+
+void    ft_usleep(long time)
+{
+    long    current;
+
+    current = ft_time_of_living();
+    while((ft_time_of_living -  current) < (time * 1000))
+    {
+        usleep(10);
+    }
 }
 
 int main()
