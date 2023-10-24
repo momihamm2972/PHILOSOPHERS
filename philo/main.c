@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 12:14:44 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/23 05:46:06 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:47:23 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void    *rotine()
 }
 // last meal dyal lowlani makayt updatach fmera;
 // katchi ghir dethe f node lwela ya3eni maka tchikich ga3 lfalasifa;
-
+// fach imot chi wa7ed exity;
 void    ft_usleep(long time)
 {
     long    current;

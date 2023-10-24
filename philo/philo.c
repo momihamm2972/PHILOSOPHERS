@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:13:22 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/23 07:29:22 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/24 02:08:19 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av)
 	// atexit (mr);
 	if (ac == 5 || ac == 6)
 	{
+		pthread_mutex_init (&safe, NULL);
 		indx = 1;
 		while (indx < ac)
 		{
@@ -77,15 +78,18 @@ int	main(int ac, char **av)
 		begin_sumulation = ft_time_of_living();
 		create_threads (philo, begin_sumulation);
 		// last_meal = ft_time_of_living();
+		last = philo;
 		while (1)
 		{
-			if (ft_time_of_living() - philo->last_meal >= (long)(philo->time_to_die * 1000))
+			
+			if (ft_time_of_living() - last->last_meal >= (long)(last->time_to_die * 1000))
 			{
-				safe_printing (philo, "died💀💀💀💀💀💀💀💀💀💀💀💀💀💀");
+				safe_printing (last, "died💀💀💀💀💀💀💀💀💀💀💀💀💀💀");
 				// printf ("die\n");
 				
 				return (0);
 			}
+			// last = last->next;
 		}
 		free (philo);
 	}

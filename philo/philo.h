@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/23 05:46:47 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:23:55 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct philo
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	int				time_of_the_last;
-	int				timer;
+	// int				timer;
 	long			current_time;
 	long			last_meal;
 	struct philo	*next;

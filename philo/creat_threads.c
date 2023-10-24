@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_threads.c                                   :+:      :+:    :+:   */
+/*   creat_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/23 05:49:21 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/24 00:38:10 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	safe_printing(t_philo *kmi, char *rotine)
 	return (0);
 }
 
-
-
 void	*actions(void *john_jack_russo)
 {
 	t_philo			*philo;
@@ -49,7 +47,10 @@ void	*actions(void *john_jack_russo)
 	// time_of_the_last_meal = ft_time_of_living();
 	// printf (">>>>>>>>>>%ld\n", time_of_the_last_meal);
 	if (philo->id % 2 == 0)
-		usleep(100);
+	{
+		ft_usleep(100);
+		philo->last_meal += 100; 
+	}
 	// even = philo->time_to_die * 2;
 	
 	while (1)
@@ -109,13 +110,12 @@ int	create_threads(t_philo *ph, long start)
 		return (-1);
 	ptr = ph;
 	indx = 0;
-	ph->timer = 0;
 	creat_mutexs(ph);
 	while (indx < ph->number_of_philosophers)
 	{
-		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
 		ptr->current_time = start;
-		ph->last_meal = ft_time_of_living ();
+		ptr->last_meal = ft_time_of_living ();
+		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
 		ptr = ptr->next;
 		indx++;
 	}
