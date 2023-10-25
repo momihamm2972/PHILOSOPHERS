@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 12:14:44 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/24 00:47:23 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/25 01:40:51 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void    ft_usleep(long time)
 {
     long    current;
 
-    current = ft_time_of_living();
-    while((ft_time_of_living -  current) < (time * 1000))
+    current = ft_now();
+    while((ft_now -  current) < (time * 1000))
     {
         usleep(10);
     }

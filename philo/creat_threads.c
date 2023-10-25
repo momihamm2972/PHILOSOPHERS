@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/24 00:38:10 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/25 01:43:51 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*fun(void)
 	return (NULL);
 }
 
-long	ft_time_of_living(void)
+long	ft_now(void)
 {
 	struct timeval	time;
 
@@ -30,7 +30,7 @@ int	safe_printing(t_philo *kmi, char *rotine)
 {
 	(void) rotine;
 	pthread_mutex_lock (kmi->print);
-	printf ("%ld  %d %s\n", (ft_time_of_living () - kmi->current_time) / 1000, kmi->id, rotine);
+	printf("%ld  %d %s\n", (ft_now () - kmi->cu_time) / 1000, kmi->id, rotine);
 	pthread_mutex_unlock (kmi->print);
 	return (0);
 }
@@ -38,44 +38,25 @@ int	safe_printing(t_philo *kmi, char *rotine)
 void	*actions(void *john_jack_russo)
 {
 	t_philo			*philo;
-	// int				even;
-	// int				timer;
-	// long				time_of_the_last_meal;
+
 	philo = (t_philo *)john_jack_russo;
-	philo->last_meal = ft_time_of_living();
-	// philo->timer = 0;
-	// time_of_the_last_meal = ft_time_of_living();
-	// printf (">>>>>>>>>>%ld\n", time_of_the_last_meal);
+	philo->last_meal = ft_now();
 	if (philo->id % 2 == 0)
 	{
 		ft_usleep(100);
 		philo->last_meal += 100; 
 	}
-	// even = philo->time_to_die * 2;
-	
 	while (1)
 	{
-		// if ((ft_time_of_living() - time_of_the_last_meal) > (long)(philo->time_to_die * 1000))
-		// {
-		// 	safe_printing (philo, "is die 💀");
-		// 	return (NULL);
-		// }
-		// printf ("<<<<<<<<<<<<<%ld\n", ft_time_of_living());
-		// sleep(3);
 		pthread_mutex_lock (&philo->the_mutex);
 		safe_printing(philo, "has taken a fork");
-		// printf ("kmi\n");
 		pthread_mutex_lock (&philo->next->the_mutex);
-		// printf ("113795\n");
 		safe_printing(philo, "has taken a fork");
-		// philo->timer += philo->time_to_eat;
-		philo->last_meal = ft_time_of_living ();
+		philo->last_meal = ft_now ();
 		safe_printing(philo, "is eating");
 		ft_usleep(philo->time_to_eat * 1000);
-		// philo->last_meal = ft_time_of_living ();
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
-		// philo->timer += philo->time_to_sleep;
 		safe_printing(philo, "is sleeping");
 		ft_usleep (philo->time_to_sleep * 1000);
 		safe_printing(philo, "is thinking");
@@ -113,8 +94,8 @@ int	create_threads(t_philo *ph, long start)
 	creat_mutexs(ph);
 	while (indx < ph->number_of_philosophers)
 	{
-		ptr->current_time = start;
-		ptr->last_meal = ft_time_of_living ();
+		ptr->cu_time = start;
+		ptr->last_meal = ft_now ();
 		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
 		ptr = ptr->next;
 		indx++;
@@ -123,7 +104,6 @@ int	create_threads(t_philo *ph, long start)
 	indx = 0;
 	while (indx < ph->number_of_philosophers)
 	{
-		// pthread_join (ptr->the_thread, NULL);
 		pthread_detach(ptr->the_thread);
 		ptr = ptr->next;
 		indx++;
