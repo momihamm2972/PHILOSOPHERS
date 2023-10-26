@@ -6,17 +6,11 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 02:34:14 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:35:25 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*fun(void)
-{
-	printf ("hahya kador bhat idrbolha lore  \n");
-	return (NULL);
-}
 
 long	ft_now(void)
 {
@@ -28,8 +22,6 @@ long	ft_now(void)
 
 int	safe_printing(t_philo *kmi, char *rotine)
 {
-	(void) rotine;
-	// (void) utils;
 	pthread_mutex_lock (&kmi->utils->print);
 	printf("%ld  %d %s\n", (ft_now () - kmi->cu_time), kmi->id, rotine);
 	pthread_mutex_unlock (&kmi->utils->print);
@@ -42,7 +34,7 @@ void	*actions(void *john_jack_russo)
 
 	philo = (t_philo *)john_jack_russo;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->time_to_eat);
+		ft_usleep(philo->utils->time_to_eat);
 	while (1)
 	{
 		pthread_mutex_lock (&philo->the_mutex);
@@ -53,11 +45,11 @@ void	*actions(void *john_jack_russo)
 		pthread_mutex_lock (philo->utils->the_mutex_of_mikwad);
 		philo->last_meal = ft_now ();
 		pthread_mutex_unlock (philo->utils->the_mutex_of_mikwad);
-		ft_usleep(philo->time_to_eat);
+		ft_usleep(philo->utils->time_to_eat);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
 		safe_printing(philo, "is sleeping");
-		ft_usleep (philo->time_to_sleep);
+		ft_usleep (philo->utils->time_to_sleep);
 		safe_printing(philo, "is thinking");
 	}
 	return (NULL);
@@ -72,7 +64,7 @@ int	creat_mutexs(t_philo *ph)
 		return (-1);
 	ptr = ph;
 	indx = 0;
-	while (indx < ph->number_of_philosophers)
+	while (indx < ph->utils->number_of_philosophers)
 	{
 		pthread_mutex_init (&(ptr->the_mutex), NULL);
 		ptr = ptr->next;
@@ -92,7 +84,7 @@ void	create_threads(t_philo *ph, long start)
 	ptr = ph;
 	indx = 0;
 	creat_mutexs(ph);
-	while (indx < ph->number_of_philosophers)
+	while (indx < ph->utils->number_of_philosophers)
 	{
 		ptr->cu_time = start;
 		ptr->last_meal = ft_now ();
@@ -102,7 +94,7 @@ void	create_threads(t_philo *ph, long start)
 	}
 	ptr = ph;
 	indx = 1;
-	while (indx <= ph->number_of_philosophers)
+	while (indx <= ph->utils->number_of_philosophers)
 	{
 		pthread_detach(ptr->the_thread);
 		ptr = ptr->next;
@@ -111,16 +103,19 @@ void	create_threads(t_philo *ph, long start)
 	last = ph;
 	while (last)
 	{
-		
+		// printf ("------------------------------------------------------------------->>\n");
+		// if (ft_now() - last->last_meal >= (long)(last->utils->time_to_die - 200))
+		// 	{
+		// 		printf ("lkmayaXXXXXXxxXXXXXXXXXXXXXXXXXxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+		// 		return ;
+		// 	}
 		pthread_mutex_lock (last->utils->the_mutex_of_mikwad);
-		if (ft_now() - last->last_meal >= (long)(last->time_to_die))
+		if (ft_now() - last->last_meal >= (long)(last->utils->time_to_die))
 		{
 			ft_exit(last);
 			break ;
 		}
-		// printf ("MMMMMMMMMMMMMMMMMMMMMMMMMMIIIIIIIIIIIIIIIIIIIIIIIILLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
 		pthread_mutex_unlock (last->utils->the_mutex_of_mikwad);
 		last = last->next;
-		// printf ("PPPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSGGGGGGGGGGGG\n");
 	}
 }

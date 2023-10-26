@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 10:42:16 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 02:36:42 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:49:23 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_isdigit(int c)
 
 void	ft_exit(t_philo *last)
 {
-	// pthread_mutex_lock (&last->utils->print);
-	printf("%ld  %d %s\n", (ft_now () - last->cu_time), last->id, "died lah irhmoXXXXX   XXXX    XXXXXXXXXXXXXXX");
+	pthread_mutex_lock (&last->utils->print);
+	printf("%ld  %d %s\n", (ft_now () - last->cu_time), last->id, "died");
 }
-
