@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 18:35:25 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:28:38 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	*actions(void *john_jack_russo)
 		philo->last_meal = ft_now ();
 		pthread_mutex_unlock (philo->utils->the_mutex_of_mikwad);
 		ft_usleep(philo->utils->time_to_eat);
+		pthread_mutex_lock(&philo->utils->mtx_last_arg);
+		philo->num_of_eat_last++;
+		pthread_mutex_unlock(&philo->utils->mtx_last_arg);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
 		safe_printing(philo, "is sleeping");
@@ -89,17 +92,17 @@ void	create_threads(t_philo *ph, long start)
 		ptr->cu_time = start;
 		ptr->last_meal = ft_now ();
 		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
-		ptr = ptr->next;
-		indx++;
-	}
-	ptr = ph;
-	indx = 1;
-	while (indx <= ph->utils->number_of_philosophers)
-	{
 		pthread_detach(ptr->the_thread);
 		ptr = ptr->next;
 		indx++;
 	}
+	ptr = ph;
+	// indx = 1;
+	// while (indx <= ph->utils->number_of_philosophers)
+	// {
+	// 	ptr = ptr->next;
+	// 	indx++;
+	// }
 	last = ph;
 	while (last)
 	{
@@ -115,6 +118,21 @@ void	create_threads(t_philo *ph, long start)
 			ft_exit(last);
 			break ;
 		}
+		pthread_mutex_lock(&last->utils->mtx_last_arg);
+		if (last->utils->number_of_times_each_philosopher_must_eat != -1 && last->done == false)
+		{
+			if(last->num_of_eat_last >= last->utils->number_of_times_each_philosopher_must_eat)
+			{
+				last->done = true;
+				last->utils->reach_goal++;
+			}
+			if (last->utils->reach_goal == last->utils->number_of_philosophers)
+			{
+				pthread_mutex_lock(&last->utils->print);
+				break ;
+			}
+		}
+		pthread_mutex_unlock(&last->utils->mtx_last_arg);
 		pthread_mutex_unlock (last->utils->the_mutex_of_mikwad);
 		last = last->next;
 	}

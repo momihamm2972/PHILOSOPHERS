@@ -6,19 +6,20 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 18:09:55 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:25:14 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>
+// # include <stdio.h>
 # include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
+// # include <stdlib.h>
+// # include <unistd.h>
 # include <pthread.h>
-# include <sys/time.h>
+// # include <sys/time.h>
+# include <libc.h>
 
 /**********************************linked list*********************************/
 typedef struct node
@@ -33,8 +34,8 @@ typedef struct philo
 	pthread_t		the_thread;
 	pthread_mutex_t	the_mutex;
 	bool			done;
+	int				num_of_eat_last;
 	int				id;
-	
 	int				time_of_the_last;
 	long			cu_time;
 	long			last_meal;
@@ -46,8 +47,10 @@ typedef struct philo
 typedef struct utils
 {
 	pthread_mutex_t	print;
+	pthread_mutex_t	mtx_last_arg;
 	pthread_mutex_t	*the_mutex_of_mikwad;
 	int				number_of_philosophers;
+	int				reach_goal;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;

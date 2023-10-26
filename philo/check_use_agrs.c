@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 08:55:14 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/20 22:18:19 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 21:47:36 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_args(char *str)
 	int	check;
 
 	check = check_arg (str);
-	if (check == -1)
+	if (check == -1 || check > 2147483647)
 		return (-1);
 	return (0);
 }
