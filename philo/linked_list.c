@@ -6,13 +6,13 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:00:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/20 22:19:52 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 02:41:05 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	*ft_lstnew(int content, char **victor)
+t_philo	*ft_lstnew(int content, char **victor, t_utils *utils0)
 {
 	t_philo	*head;
 
@@ -24,7 +24,10 @@ t_philo	*ft_lstnew(int content, char **victor)
 	head->time_to_eat = ft_atoi (victor[3]);
 	head->time_to_sleep = ft_atoi (victor[4]);
 	head->id = content;
+	head->utils = (void	*)utils0;
+	head->number_of_times_each_philosopher_must_eat = -1;
 	head->next = NULL;
+	head->utils->lm3elm = head->time_to_die;
 	if (victor[5])
 		head->number_of_times_each_philosopher_must_eat = ft_atoi (victor[5]);
 	return (head);
@@ -78,16 +81,3 @@ void	ft_lstadd_back(t_philo **lst, t_philo *new)
 	the_last = ft_lstlast(lst);
 	the_last->next = new;
 }
-
-// int main()
-// {
-//     t_philo *mimi = ft_lstnew (91);
-//     mimi->next = ft_lstnew (78);
-//     mimi->next->next = ft_lstnew (60);
-//     mimi->next->next->next = ft_lstnew (47);
-//     t_philo *last = ft_lstlast (&mimi);
-//     last->next = mimi;
-//     printf ("%d", last->next->id);
-//     last = ft_elimini (&mimi, 91);
-//     printf ("\n%d\n", last->data);
-// }

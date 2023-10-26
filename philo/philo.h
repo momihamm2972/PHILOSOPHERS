@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/25 02:28:03 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 01:39:46 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef struct philo
 {
 	pthread_t		the_thread;
 	pthread_mutex_t	the_mutex;
-	pthread_mutex_t	*the_mutex_of_mikwad;
-	pthread_mutex_t	*print;
+	// pthread_mutex_t	*the_mutex_of_mikwad;
 	bool			done;
 	int				id;
 	int				number_of_philosophers;
@@ -45,21 +44,25 @@ typedef struct philo
 	long			cu_time;
 	long			last_meal;
 	struct philo	*next;
+	struct utils	*utils;
 }t_philo;
 /******************************************************************************/
 /******************************************************************************/
 typedef struct utils
 {
-	pthread_mutex_t	safe;
+	// pthread_mutex_t	safe;
+	pthread_mutex_t	print;
+	pthread_mutex_t	*the_mutex_of_mikwad;
 	int				indx;
 	long			begin_sumulation;
 	bool			fidler;
+	int	lm3elm;
 }t_utils;
 /******************************************************************************/
 
 t_philo		*ft_lstlast(t_philo **lst);
 t_philo		*ft_elimini(t_philo **lst, int first);
-t_philo		*ft_lstnew(int content, char **victor);
+t_philo		*ft_lstnew(int content, char **victor, t_utils *utils0);
 void		ft_lstadd_back(t_philo **lst, t_philo *new);
 void		*actions(void *john_jack_russo);
 void		*fun(void);
@@ -68,7 +71,7 @@ void		*ft_calloc(size_t count, size_t size);
 void		ft_usleep(long time);
 char		*ft_strdup(char *s1);
 int			ft_strlen(char *str);
-int			create_threads(t_philo *ph, long start);
+void			create_threads(t_philo *ph, long start);
 int			check_arg(char *str);
 int			creat_mutexs(t_philo *ph);
 int			ft_args(char *str);
@@ -77,4 +80,6 @@ int			ft_isdigit(int c);
 int			safe_printing(t_philo *kmi, char *rotine);
 long		ft_now(void);
 long long	ft_atoi(char *str);
+void	ft_exit(t_philo *last);
+
 #endif

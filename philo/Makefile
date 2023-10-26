@@ -6,13 +6,13 @@
 #    By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 02:33:50 by momihamm          #+#    #+#              #
-#    Updated: 2023/10/25 02:03:28 by momihamm         ###   ########.fr        #
+#    Updated: 2023/10/26 02:39:11 by momihamm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-FLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
+FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 FILES = philo.c\
 		utils.c\
 		utils1.c\

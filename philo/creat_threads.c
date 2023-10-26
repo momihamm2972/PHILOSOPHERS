@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/25 01:43:51 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/26 02:34:14 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ long	ft_now(void)
 	struct timeval	time;
 
 	gettimeofday (&time, NULL);
-	return ((time.tv_sec * 1000000) + time.tv_usec);
+	return ((time.tv_sec * 1000) + time.tv_usec / 1000);
 }
 
 int	safe_printing(t_philo *kmi, char *rotine)
 {
 	(void) rotine;
-	pthread_mutex_lock (kmi->print);
-	printf("%ld  %d %s\n", (ft_now () - kmi->cu_time) / 1000, kmi->id, rotine);
-	pthread_mutex_unlock (kmi->print);
+	// (void) utils;
+	pthread_mutex_lock (&kmi->utils->print);
+	printf("%ld  %d %s\n", (ft_now () - kmi->cu_time), kmi->id, rotine);
+	pthread_mutex_unlock (&kmi->utils->print);
 	return (0);
 }
 
@@ -40,25 +41,23 @@ void	*actions(void *john_jack_russo)
 	t_philo			*philo;
 
 	philo = (t_philo *)john_jack_russo;
-	philo->last_meal = ft_now();
 	if (philo->id % 2 == 0)
-	{
-		ft_usleep(100);
-		philo->last_meal += 100; 
-	}
+		ft_usleep(philo->time_to_eat);
 	while (1)
 	{
 		pthread_mutex_lock (&philo->the_mutex);
 		safe_printing(philo, "has taken a fork");
 		pthread_mutex_lock (&philo->next->the_mutex);
 		safe_printing(philo, "has taken a fork");
-		philo->last_meal = ft_now ();
 		safe_printing(philo, "is eating");
-		ft_usleep(philo->time_to_eat * 1000);
+		pthread_mutex_lock (philo->utils->the_mutex_of_mikwad);
+		philo->last_meal = ft_now ();
+		pthread_mutex_unlock (philo->utils->the_mutex_of_mikwad);
+		ft_usleep(philo->time_to_eat);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
 		safe_printing(philo, "is sleeping");
-		ft_usleep (philo->time_to_sleep * 1000);
+		ft_usleep (philo->time_to_sleep);
 		safe_printing(philo, "is thinking");
 	}
 	return (NULL);
@@ -82,13 +81,14 @@ int	creat_mutexs(t_philo *ph)
 	return (0);
 }
 
-int	create_threads(t_philo *ph, long start)
+void	create_threads(t_philo *ph, long start)
 {
 	t_philo	*ptr;
+	t_philo			*last;
 	int		indx;
 
 	if (!ph)
-		return (-1);
+		return ;
 	ptr = ph;
 	indx = 0;
 	creat_mutexs(ph);
@@ -101,12 +101,26 @@ int	create_threads(t_philo *ph, long start)
 		indx++;
 	}
 	ptr = ph;
-	indx = 0;
-	while (indx < ph->number_of_philosophers)
+	indx = 1;
+	while (indx <= ph->number_of_philosophers)
 	{
 		pthread_detach(ptr->the_thread);
 		ptr = ptr->next;
 		indx++;
 	}
-	return (0);
+	last = ph;
+	while (last)
+	{
+		
+		pthread_mutex_lock (last->utils->the_mutex_of_mikwad);
+		if (ft_now() - last->last_meal >= (long)(last->time_to_die))
+		{
+			ft_exit(last);
+			break ;
+		}
+		// printf ("MMMMMMMMMMMMMMMMMMMMMMMMMMIIIIIIIIIIIIIIIIIIIIIIIILLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
+		pthread_mutex_unlock (last->utils->the_mutex_of_mikwad);
+		last = last->next;
+		// printf ("PPPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSGGGGGGGGGGGG\n");
+	}
 }
