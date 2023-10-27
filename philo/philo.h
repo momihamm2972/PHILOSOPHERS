@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 23:25:14 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:40:17 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ typedef struct utils
 {
 	pthread_mutex_t	print;
 	pthread_mutex_t	mtx_last_arg;
-	pthread_mutex_t	*the_mutex_of_mikwad;
+	pthread_mutex_t	*the_mutex_of_redone;
 	int				number_of_philosophers;
 	int				reach_goal;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
+	int				number_must_eat;
 	int				indx;
 	long			begin_sumulation;
 	bool			fidler;
@@ -72,13 +72,15 @@ void		*ft_calloc(size_t count, size_t size);
 void		create_threads(t_philo *ph, long start);
 void		ft_usleep(long time);
 void		ft_exit(t_philo *last);
+void		ft_reach(t_philo *last);
+void		init_the_philos(t_philo *ph, int num_ph, char **vi, t_utils *tool);
 int			ft_strlen(char *str);
 int			check_arg(char *str);
 int			creat_mutexs(t_philo *ph);
 int			ft_args(char *str);
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
-int			safe_printing(t_philo *kmi, char *rotine);
+int			safe_printing(t_philo *ptr, char *rotine);
 char		*ft_strdup(char *s1);
 long		ft_now(void);
 long long	ft_atoi(char *str);

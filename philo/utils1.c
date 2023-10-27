@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 06:50:46 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/20 22:17:17 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/27 22:50:47 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	*ft_memcpy(void *to, const void *from, size_t len)
 		i++;
 	}
 	return (to0);
+}
+
+long	ft_now(void)
+{
+	struct timeval	time;
+
+	gettimeofday (&time, NULL);
+	return ((time.tv_sec * 1000) + time.tv_usec / 1000);
 }

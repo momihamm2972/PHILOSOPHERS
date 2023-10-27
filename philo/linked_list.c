@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:00:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 23:19:11 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/27 22:47:06 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,17 @@
 t_philo	*ft_lstnew(int content, char **victor, t_utils *utils0)
 {
 	t_philo	*head;
-	(void) victor;
 
+	(void) victor;
 	head = malloc (sizeof (t_philo));
 	if (!head)
 		return (NULL);
-	// head->number_of_philosophers = ft_atoi (victor[1]);
-	// head->time_to_die = ft_atoi (victor[2]);
-	// head->time_to_eat = ft_atoi (victor[3]);
-	// head->time_to_sleep = ft_atoi (victor[4]);
 	head->id = content;
-	head->utils = (void	*)utils0;
+	head->utils = (void *)utils0;
 	head->done = false;
 	head->num_of_eat_last = 0;
 	head->utils->reach_goal = 0;
-	// head->number_of_times_each_philosopher_must_eat = -1;
 	head->next = NULL;
-	// head->utils->lm3elm = head->time_to_die;
-	// if (victor[5])
-		// head->number_of_times_each_philosopher_must_eat = ft_atoi (victor[5]);
 	return (head);
 }
 
