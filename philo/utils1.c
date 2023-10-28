@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 06:50:46 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/27 22:50:47 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 04:00:11 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,19 @@ long	ft_now(void)
 
 	gettimeofday (&time, NULL);
 	return ((time.tv_sec * 1000) + time.tv_usec / 1000);
+}
+
+void	destroy_forks(t_philo *falasifa, int num_of_falasifa)
+{
+	t_philo		*ptr;
+	int			indx;
+
+	ptr = falasifa;
+	indx = 1;
+	while (indx <= num_of_falasifa)
+	{
+		pthread_mutex_destroy (&ptr->the_mutex);
+		indx++;
+		ptr = ptr->next;
+	}
 }

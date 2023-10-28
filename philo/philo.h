@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 00:40:17 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 03:49:56 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void		ft_usleep(long time);
 void		ft_exit(t_philo *last);
 void		ft_reach(t_philo *last);
 void		init_the_philos(t_philo *ph, int num_ph, char **vi, t_utils *tool);
+void		destroy_forks(t_philo *falasifa, int num_of_falasifa);
 int			ft_strlen(char *str);
 int			check_arg(char *str);
 int			creat_mutexs(t_philo *ph);

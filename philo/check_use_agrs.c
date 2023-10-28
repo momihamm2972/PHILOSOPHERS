@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 08:55:14 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/26 21:47:36 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 02:56:11 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_arg(char *str)
 			return (-1);
 		indx++;
 	}
+	if (ft_atoi (str) < 0 || ft_atoi (str) > 2147483647)
+		return (-1);
 	return (0);
 }
 
@@ -35,7 +37,10 @@ int	ft_args(char *str)
 	int	check;
 
 	check = check_arg (str);
-	if (check == -1 || check > 2147483647)
+	if (check == -1)
+	{
+		printf ("args not suported!!\n");
 		return (-1);
+	}
 	return (0);
 }

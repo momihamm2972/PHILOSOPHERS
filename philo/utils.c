@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 06:28:37 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/20 22:17:07 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 03:59:56 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ long long	ft_atoi(char *str)
 		if (!(str[i_r_s[0]] >= '0' && str[i_r_s[0]] <= '9'))
 			return (0);
 		i_r_s[1] = (i_r_s[1] * 10) + str[i_r_s[0]] - '0';
-		if ((i_r_s[1] * i_r_s[2]) > 2147483647)
-			return (0);
-		if ((i_r_s[1] * i_r_s[2]) < -2147483648)
-			return (0);
 	}
 	return (i_r_s[1] * i_r_s[2]);
 }

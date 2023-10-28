@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:13:22 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 00:41:05 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 03:50:54 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ int	main(int ac, char **av)
 			else
 				return (0);
 		}
-		indx = 1;
 		initial_utils (&utils, av);
 		init_the_philos (philo, ft_atoi(av[1]), av, utils);
+		destroy_forks (philo, ft_atoi (av[1]));
+		pthread_mutex_destroy (&utils->print);
+		pthread_mutex_destroy (&utils->mtx_last_arg);
+		pthread_mutex_destroy (utils->the_mutex_of_redone);
 	}
 }
 
