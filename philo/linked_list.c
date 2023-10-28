@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:00:07 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/27 22:47:06 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:11:58 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_philo	*ft_lstnew(int content, char **victor, t_utils *utils0)
 		return (NULL);
 	head->id = content;
 	head->utils = (void *)utils0;
+	head->last_meal = 0;
 	head->done = false;
 	head->num_of_eat_last = 0;
 	head->utils->reach_goal = 0;

@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/27 22:43:20 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 19:05:27 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void	*actions(void *john_jack_russo)
 		philo->last_meal = ft_now ();
 		pthread_mutex_unlock (philo->utils->the_mutex_of_redone);
 		ft_usleep(philo->utils->time_to_eat);
-		pthread_mutex_lock(&philo->utils->mtx_last_arg);
-		philo->num_of_eat_last++;
-		pthread_mutex_unlock(&philo->utils->mtx_last_arg);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
+		if (philo->utils->number_must_eat != -1)
+		{
+			// pthread_mutex_lock(&philo->utils->mtx_last_arg);
+			philo->num_of_eat_last++;
+			// pthread_mutex_unlock(&philo->utils->mtx_last_arg);
+		}
 		safe_printing(philo, "is sleeping");
 		ft_usleep (philo->utils->time_to_sleep);
 		safe_printing(philo, "is thinking");
@@ -95,9 +98,15 @@ void	create_threads(t_philo *ph, long start)
 		ptr = ptr->next;
 		indx++;
 	}
-	ptr = ph;
+	// ptr = ph;
 	last = ph;
 	ft_reach (last);
+	// int kmi = 0;
+	// while (ph)
+	// {
+	// 	printf ("wiwi___++++++>>><><><%d\n", ph->id);
+	// 	ph = ph->next;
+	// }
 }
 
 void	ft_reach(t_philo *last)

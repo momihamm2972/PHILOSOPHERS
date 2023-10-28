@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 08:55:14 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 02:56:11 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:53:37 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_arg(char *str)
 			return (-1);
 		indx++;
 	}
-	if (ft_atoi (str) < 0 || ft_atoi (str) > 2147483647)
+	if (ft_atoi (str) <= 0 || ft_atoi (str) > 2147483647)
 		return (-1);
 	return (0);
 }

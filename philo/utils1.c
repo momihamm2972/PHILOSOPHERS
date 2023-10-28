@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 06:50:46 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 04:00:11 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:23:54 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ void	destroy_forks(t_philo *falasifa, int num_of_falasifa)
 	indx = 1;
 	while (indx <= num_of_falasifa)
 	{
+		// printf ("waaaaa>>%p\n", ptr);
 		pthread_mutex_destroy (&ptr->the_mutex);
-		indx++;
+		if (!ptr->next)
+			return ;
 		ptr = ptr->next;
+		indx++;
 	}
 }

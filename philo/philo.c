@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:13:22 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 03:50:54 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/28 20:20:08 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // destroyyyyyyyyyyyyyy
 
-void	init_the_philos(t_philo *ph, int num_ph, char **vi, t_utils *tool);
+void	init_the_philos(t_philo **ph, int num_ph, char **vi, t_utils *tool);
 
 void	mr(void)
 {
@@ -26,8 +26,8 @@ void	ft_usleep(long time)
 	long	current;
 
 	current = ft_now();
-	while ((ft_now () - current) < (time))
-		usleep(10);
+	while ((ft_now () - current) <= (time))
+		usleep(100);
 }
 
 void	initial_utils(t_utils **my_struct, char **victor)
@@ -62,15 +62,24 @@ int	main(int ac, char **av)
 				return (0);
 		}
 		initial_utils (&utils, av);
-		init_the_philos (philo, ft_atoi(av[1]), av, utils);
+		init_the_philos (&philo, ft_atoi(av[1]), av, utils);
+		// printf ("================\n");
+		// printf ("================\n");
+		// printf ("==========>>>>>%p\n",philo);
+		// printf ("================\n");
+		// while (philo)
+		// {
+		// 	printf ("police====>%d\n", philo->id);
+		// 	philo = philo->next;
+		// }
 		destroy_forks (philo, ft_atoi (av[1]));
 		pthread_mutex_destroy (&utils->print);
 		pthread_mutex_destroy (&utils->mtx_last_arg);
-		pthread_mutex_destroy (utils->the_mutex_of_redone);
+		// pthread_mutex_destroy (utils->the_mutex_of_redone);
 	}
 }
 
-void	init_the_philos(t_philo *ph, int num_ph, char **vi, t_utils *tool)
+void	init_the_philos(t_philo **ph, int num_ph, char **vi, t_utils *tool)
 {
 	pthread_mutex_t	redone;
 	t_philo			*last;
@@ -79,29 +88,29 @@ void	init_the_philos(t_philo *ph, int num_ph, char **vi, t_utils *tool)
 	indx = 1;
 	while (indx <= num_ph)
 	{
-		ft_lstadd_back (&ph, ft_lstnew (indx, vi, tool));
+		ft_lstadd_back (ph, ft_lstnew (indx, vi, tool));
 		indx++;
 	}
-	last = ph;
+	last = (*ph);
 	pthread_mutex_init (&redone, NULL);
-	while (last)
-	{
+	// while (last)
+	// {
 		last->utils->the_mutex_of_redone = &redone;
-		last = last->next;
-	}
-	last = ft_lstlast(&ph);
+	// 	last = last->next;
+	// }
+	last = ft_lstlast(ph);
 	if (!last)
 		return (free(ph), free(tool));
-	last->next = ph;
-	ph->utils->begin_sumulation = ft_now();
-	pthread_mutex_init (&ph->utils->print, NULL);
-	pthread_mutex_init (&ph->utils->mtx_last_arg, NULL);
-	create_threads (ph, ph->utils->begin_sumulation);
+	last->next = (*ph);
+	(*ph)->utils->begin_sumulation = ft_now();
+	pthread_mutex_init (&(*ph)->utils->print, NULL);
+	pthread_mutex_init (&(*ph)->utils->mtx_last_arg, NULL);
+	create_threads (*ph, (*ph)->utils->begin_sumulation);
 }
 
 //errs
 /*
 ./philo  4 610 200 2147483648 ==>> protect max int (rtn max long in ft_atoi)
 destroy mutexes 
-
+rah mdistroyitch wa7d lmutex;
 */
