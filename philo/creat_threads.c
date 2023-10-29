@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 19:05:27 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/29 02:06:58 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ void	*actions(void *john_jack_russo)
 		pthread_mutex_lock (&philo->next->the_mutex);
 		safe_printing(philo, "has taken a fork");
 		safe_printing(philo, "is eating");
-		pthread_mutex_lock (philo->utils->the_mutex_of_redone);
+		pthread_mutex_lock (&philo->utils->the_mutex_of_redone);
 		philo->last_meal = ft_now ();
-		pthread_mutex_unlock (philo->utils->the_mutex_of_redone);
+		pthread_mutex_unlock (&philo->utils->the_mutex_of_redone);
 		ft_usleep(philo->utils->time_to_eat);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
 		if (philo->utils->number_must_eat != -1)
 		{
-			// pthread_mutex_lock(&philo->utils->mtx_last_arg);
+			pthread_mutex_lock(&philo->utils->mtx_last_arg);
 			philo->num_of_eat_last++;
-			// pthread_mutex_unlock(&philo->utils->mtx_last_arg);
+			pthread_mutex_unlock(&philo->utils->mtx_last_arg);
 		}
 		safe_printing(philo, "is sleeping");
 		ft_usleep (philo->utils->time_to_sleep);
@@ -78,7 +78,7 @@ int	creat_mutexs(t_philo *ph)
 	return (0);
 }
 
-void	create_threads(t_philo *ph, long start)
+void	create_threads(t_philo *ph)
 {
 	t_philo	*ptr;
 	t_philo	*last;
@@ -91,7 +91,7 @@ void	create_threads(t_philo *ph, long start)
 	creat_mutexs(ph);
 	while (indx < ph->utils->number_of_philosophers)
 	{
-		ptr->cu_time = start;
+		ptr->cu_time = ph->utils->begin_sumulation;
 		ptr->last_meal = ft_now ();
 		pthread_create (&ptr->the_thread, NULL, &actions, ptr);
 		pthread_detach(ptr->the_thread);
@@ -113,7 +113,7 @@ void	ft_reach(t_philo *last)
 {
 	while (last)
 	{
-		pthread_mutex_lock (last->utils->the_mutex_of_redone);
+		pthread_mutex_lock (&last->utils->the_mutex_of_redone);
 		if (ft_now() - last->last_meal >= (long)(last->utils->time_to_die))
 		{
 			ft_exit(last);
@@ -132,7 +132,8 @@ void	ft_reach(t_philo *last)
 			}
 		}
 		pthread_mutex_unlock(&last->utils->mtx_last_arg);
-		pthread_mutex_unlock (last->utils->the_mutex_of_redone);
+		pthread_mutex_unlock (&last->utils->the_mutex_of_redone);
 		last = last->next;
+		usleep (100);
 	}
 }

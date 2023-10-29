@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/28 19:02:26 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/29 01:03:05 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct utils
 {
 	pthread_mutex_t	print;
 	pthread_mutex_t	mtx_last_arg;
-	pthread_mutex_t	*the_mutex_of_redone;
+	pthread_mutex_t	the_mutex_of_redone;
 	int				number_of_philosophers;
 	int				reach_goal;
 	int				time_to_die;
@@ -57,19 +57,19 @@ typedef struct utils
 	int				number_must_eat;
 	int				indx;
 	long			begin_sumulation;
-	bool			fidler;
-	int				lm3elm;
+	// bool			fidler;
+	// int				lm3elm;
 }t_utils;
 /******************************************************************************/
 
 t_philo		*ft_lstlast(t_philo **lst);
-t_philo		*ft_elimini(t_philo **lst, int first);
+// t_philo		*ft_elimini(t_philo **lst, int first);
 t_philo		*ft_lstnew(int content, char **victor, t_utils *utils0);
 void		ft_lstadd_back(t_philo **lst, t_philo *new);
 void		*actions(void *john_jack_russo);
 void		*ft_memcpy(void *to, const void *from, size_t len);
 void		*ft_calloc(size_t count, size_t size);
-void		create_threads(t_philo *ph, long start);
+void		create_threads(t_philo *ph);
 void		ft_usleep(long time);
 void		ft_exit(t_philo *last);
 void		ft_reach(t_philo *last);
