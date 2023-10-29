@@ -6,19 +6,11 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:07:34 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/29 02:06:58 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/29 03:26:47 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// long	ft_now(void)
-// {
-// 	struct timeval	time;
-
-// 	gettimeofday (&time, NULL);
-// 	return ((time.tv_sec * 1000) + time.tv_usec / 1000);
-// }
 
 int	safe_printing(t_philo *ptr, char *rotine)
 {
@@ -26,6 +18,16 @@ int	safe_printing(t_philo *ptr, char *rotine)
 	printf("%ld  %d %s\n", (ft_now () - ptr->cu_time), ptr->id, rotine);
 	pthread_mutex_unlock (&ptr->utils->print);
 	return (0);
+}
+
+void	the_five(t_philo *philo)
+{
+	if (philo->utils->number_must_eat != -1)
+	{
+		pthread_mutex_lock(&philo->utils->mtx_last_arg);
+		philo->num_of_eat_last++;
+		pthread_mutex_unlock(&philo->utils->mtx_last_arg);
+	}
 }
 
 void	*actions(void *john_jack_russo)
@@ -48,12 +50,7 @@ void	*actions(void *john_jack_russo)
 		ft_usleep(philo->utils->time_to_eat);
 		pthread_mutex_unlock (&philo->the_mutex);
 		pthread_mutex_unlock (&philo->next->the_mutex);
-		if (philo->utils->number_must_eat != -1)
-		{
-			pthread_mutex_lock(&philo->utils->mtx_last_arg);
-			philo->num_of_eat_last++;
-			pthread_mutex_unlock(&philo->utils->mtx_last_arg);
-		}
+		the_five (philo);
 		safe_printing(philo, "is sleeping");
 		ft_usleep (philo->utils->time_to_sleep);
 		safe_printing(philo, "is thinking");
@@ -98,42 +95,35 @@ void	create_threads(t_philo *ph)
 		ptr = ptr->next;
 		indx++;
 	}
-	// ptr = ph;
 	last = ph;
 	ft_reach (last);
-	// int kmi = 0;
-	// while (ph)
-	// {
-	// 	printf ("wiwi___++++++>>><><><%d\n", ph->id);
-	// 	ph = ph->next;
-	// }
 }
 
-void	ft_reach(t_philo *last)
-{
-	while (last)
-	{
-		pthread_mutex_lock (&last->utils->the_mutex_of_redone);
-		if (ft_now() - last->last_meal >= (long)(last->utils->time_to_die))
-		{
-			ft_exit(last);
-			break ;
-		}
-		pthread_mutex_lock(&last->utils->mtx_last_arg);
-		if (last->utils->number_must_eat != -1 && last->done == false
-			&& last->num_of_eat_last >= last->utils->number_must_eat)
-		{
-			last->done = true;
-			last->utils->reach_goal++;
-			if (last->utils->reach_goal == last->utils->number_of_philosophers)
-			{
-				pthread_mutex_lock(&last->utils->print);
-				break ;
-			}
-		}
-		pthread_mutex_unlock(&last->utils->mtx_last_arg);
-		pthread_mutex_unlock (&last->utils->the_mutex_of_redone);
-		last = last->next;
-		usleep (100);
-	}
-}
+// void	ft_reach(t_philo *last)
+// {
+// 	while (last)
+// 	{
+// 		pthread_mutex_lock (&last->utils->the_mutex_of_redone);
+// 		if (ft_now() - last->last_meal >= (long)(last->utils->time_to_die))
+// 		{
+// 			ft_exit(last);
+// 			break ;
+// 		}
+// 		pthread_mutex_lock(&last->utils->mtx_last_arg);
+// 		if (last->utils->number_must_eat != -1 && last->done == false
+// 			&& last->num_of_eat_last >= last->utils->number_must_eat)
+// 		{
+// 			last->done = true;
+// 			last->utils->reach_goal++;
+// 			if (last->utils->reach_goal == last->utils->number_of_philosophers)
+// 			{
+// 				pthread_mutex_lock(&last->utils->print);
+// 				break ;
+// 			}
+// 		}
+// 		pthread_mutex_unlock(&last->utils->mtx_last_arg);
+// 		pthread_mutex_unlock (&last->utils->the_mutex_of_redone);
+// 		last = last->next;
+// 		usleep (100);
+// 	}
+// }

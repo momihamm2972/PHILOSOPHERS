@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:02:09 by momihamm          #+#    #+#             */
-/*   Updated: 2023/10/29 01:03:05 by momihamm         ###   ########.fr       */
+/*   Updated: 2023/10/29 03:26:13 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ typedef struct utils
 	int				number_must_eat;
 	int				indx;
 	long			begin_sumulation;
-	// bool			fidler;
-	// int				lm3elm;
 }t_utils;
 /******************************************************************************/
 
@@ -75,6 +73,7 @@ void		ft_exit(t_philo *last);
 void		ft_reach(t_philo *last);
 void		init_the_philos(t_philo **ph, int num_ph, char **vi, t_utils *tool);
 void		destroy_forks(t_philo *falasifa, int num_of_falasifa);
+void		the_five(t_philo *philo);
 int			ft_strlen(char *str);
 int			check_arg(char *str);
 int			creat_mutexs(t_philo *ph);
